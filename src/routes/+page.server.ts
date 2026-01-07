@@ -1,14 +1,10 @@
-// src/routes/+page.server.js
+// src/routes/+page.server.ts
+import type { PageServerLoad } from './$types';
 
-import { redirect } from '@sveltejs/kit';
-
-export async function load({ locals }) {
-	// Access our user from locals.
-	if (!locals.user) {
-		// If no user is logged in, redirect to the sign up page.
-		redirect(301, '/signup');
-	}
-
-	// If the user is logged in, redirect to the account page.
-	redirect(301, '/account');
-}
+export const load: PageServerLoad = async ({ locals }) => {
+	// Home page is accessible to everyone
+	// Pass user data if available
+	return {
+		user: locals.user
+	};
+};

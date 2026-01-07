@@ -36,9 +36,9 @@
 	});
 </script>
 
-<div class="min-h-screen bg-gray-50 py-8">
+<div class="bg-gray-50 py-8">
 	<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-		<!-- Header -->
+		<!-- Page Header -->
 		<div class="mb-8 flex justify-between items-center">
 			<div>
 				<h1 class="text-3xl font-bold text-gray-900">Posts</h1>
@@ -46,20 +46,12 @@
 					Total posts: {data.total}
 				</p>
 			</div>
-			<div class="flex gap-4">
-				<a
-					href="/account"
-					class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
-				>
-					Account
-				</a>
-				<button
-					onclick={toggleCreateForm}
-					class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
-				>
-					{showCreateForm ? 'Cancel' : 'Create Post'}
-				</button>
-			</div>
+			<button
+				onclick={toggleCreateForm}
+				class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+			>
+				{showCreateForm ? 'Cancel' : 'Create Post'}
+			</button>
 		</div>
 
 		<!-- Create Post Form -->

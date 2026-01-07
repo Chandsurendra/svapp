@@ -8,7 +8,7 @@ import { PUBLIC_APPWRITE_DATABASE_ID, PUBLIC_APPWRITE_POSTS_COLLECTION_ID } from
 export const load: PageServerLoad = async ({ locals, url, cookies }) => {
 	// Check if user is authenticated
 	if (!locals.user) {
-		redirect(302, '/signup');
+		redirect(302, '/login');
 	}
 
 	try {

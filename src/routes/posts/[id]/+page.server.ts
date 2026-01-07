@@ -36,7 +36,7 @@ export const load: PageServerLoad = async ({ params, locals, cookies }) => {
 		
 		// Handle session errors
 		if (err.message?.includes('No user session')) {
-			redirect(302, '/signup');
+			redirect(302, '/login');
 		}
 		
 		// Appwrite errors can have code in different places

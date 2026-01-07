@@ -20,9 +20,9 @@ export async function GET(event) {
 		secret
 	});
 
-	// Redirect to the account page, and set the session cookie
+	// Redirect to the home page, and set the session cookie
 	const headers = new Headers({
-		location: '/account',
+		location: '/',
 		'set-cookie': event.cookies.serialize(SESSION_COOKIE, session.secret, {
 			sameSite: 'strict',
 			expires: new Date(session.expire),

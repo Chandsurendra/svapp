@@ -1,24 +1,312 @@
-<script>
-	export let data;
+<script lang="ts">
+	import { enhance } from '$app/forms';
 
-	const { user } = data;
+	let { data, form } = $props();
+
+	let isEditingProfile = $state(false);
+	let isChangingPassword = $state(false);
+	let showPasswordSection = $state(false);
+
+	let name = $state(data?.user?.name || '');
+	let email = $state(data?.user?.email || '');
+	let phone = $state(data?.user?.phone || '');
+
+	let currentPassword = $state('');
+	let newPassword = $state('');
+	let confirmPassword = $state('');
+
+	// Update local state when data changes
+	$effect(() => {
+		if (data?.user) {
+			name = data.user.name || '';
+			email = data.user.email || '';
+			phone = data.user.phone || '';
+		}
+	});
+
+	// Reset form states after successful updates
+	$effect(() => {
+		if (form?.success) {
+			isEditingProfile = false;
+			isChangingPassword = false;
+			currentPassword = '';
+			newPassword = '';
+			confirmPassword = '';
+		}
+	});
+
+	function toggleProfileEdit() {
+		isEditingProfile = !isEditingProfile;
+		if (!isEditingProfile && data?.user) {
+			// Reset to original values
+			name = data.user.name || '';
+			email = data.user.email || '';
+			phone = data.user.phone || '';
+		}
+	}
+
+	function togglePasswordChange() {
+		isChangingPassword = !isChangingPassword;
+		if (!isChangingPassword) {
+			currentPassword = '';
+			newPassword = '';
+			confirmPassword = '';
+		}
+	}
+
+	function formatDate(dateString: string) {
+		if (!dateString) return 'N/A';
+		return new Date(dateString).toLocaleDateString('en-US', {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric',
+			hour: '2-digit',
+			minute: '2-digit'
+		});
+	}
 </script>
 
-<ul>
-	<li>
-		<strong>Email:</strong>
-		{user.email}
-	</li>
-	<li>
-		<strong>Name:</strong>
-		{user.name}
-	</li>
-	<li>
-		<strong>ID: </strong>
-		{user.$id}
-	</li>
-</ul>
+<div class="bg-gray-50 py-8">
+	<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+		<!-- Page Header -->
+		<div class="mb-8">
+			<h1 class="text-3xl font-bold text-gray-900">Account Settings</h1>
+			<p class="mt-2 text-sm text-gray-600">Manage your account information and preferences</p>
+		</div>
 
-<form method="post">
-	<button type="submit">Log out</button>
-</form>
+		<!-- Success Message -->
+		{#if form?.success}
+			<div class="mb-6 p-4 bg-green-50 border border-green-200 rounded-md text-green-700">
+				{form.message || 'Profile updated successfully!'}
+			</div>
+		{/if}
+
+		<!-- Error Message -->
+		{#if form?.error}
+			<div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-md text-red-700">
+				{form.error}
+			</div>
+		{/if}
+
+		<div class="space-y-6">
+			<!-- Profile Information Card -->
+			<div class="bg-white shadow rounded-lg p-6">
+				<div class="flex justify-between items-center mb-6">
+					<h2 class="text-xl font-semibold text-gray-900">Profile Information</h2>
+					{#if !isEditingProfile}
+						<button
+							onclick={toggleProfileEdit}
+							class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+						>
+							Edit Profile
+						</button>
+					{/if}
+				</div>
+
+				{#if isEditingProfile}
+					<form action="?/updateProfile" method="post" use:enhance class="space-y-6">
+						<div>
+							<label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+								Full Name
+							</label>
+							<input
+								type="text"
+								id="name"
+								name="name"
+								bind:value={name}
+								required
+								class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+								placeholder="John Doe"
+							/>
+						</div>
+
+						<div>
+							<label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+								Email Address
+							</label>
+							<input
+								type="email"
+								id="email"
+								name="email"
+								bind:value={email}
+								required
+								class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+								placeholder="you@example.com"
+							/>
+							<p class="mt-1 text-xs text-gray-500">
+								Changing your email will require verification
+							</p>
+						</div>
+
+						<div>
+							<label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+								Phone Number
+							</label>
+							<input
+								type="tel"
+								id="phone"
+								name="phone"
+								bind:value={phone}
+								class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+								placeholder="+1234567890"
+							/>
+							<p class="mt-1 text-xs text-gray-500">
+								Optional. Adding a phone number will require verification
+							</p>
+						</div>
+
+						<div class="flex justify-end gap-3">
+							<button
+								type="button"
+								onclick={toggleProfileEdit}
+								class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+							>
+								Cancel
+							</button>
+							<button
+								type="submit"
+								class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+							>
+								Save Changes
+							</button>
+						</div>
+					</form>
+				{:else}
+					<dl class="space-y-4">
+						<div>
+							<dt class="text-sm font-medium text-gray-500">Full Name</dt>
+							<dd class="mt-1 text-sm text-gray-900">{data?.user?.name || 'Not set'}</dd>
+						</div>
+						<div>
+							<dt class="text-sm font-medium text-gray-500">Email Address</dt>
+							<dd class="mt-1 text-sm text-gray-900">{data?.user?.email || 'Not set'}</dd>
+						</div>
+						<div>
+							<dt class="text-sm font-medium text-gray-500">Phone Number</dt>
+							<dd class="mt-1 text-sm text-gray-900">{data?.user?.phone || 'Not set'}</dd>
+						</div>
+						<div>
+							<dt class="text-sm font-medium text-gray-500">User ID</dt>
+							<dd class="mt-1 text-sm text-gray-900 font-mono">{data?.user?.$id}</dd>
+						</div>
+						<div>
+							<dt class="text-sm font-medium text-gray-500">Account Created</dt>
+							<dd class="mt-1 text-sm text-gray-900">
+								{formatDate(data?.user?.$createdAt)}
+							</dd>
+						</div>
+					</dl>
+				{/if}
+			</div>
+
+			<!-- Password Change Card -->
+			<div class="bg-white shadow rounded-lg p-6">
+				<div class="flex justify-between items-center mb-6">
+					<div>
+						<h2 class="text-xl font-semibold text-gray-900">Password</h2>
+						<p class="mt-1 text-sm text-gray-500">Change your account password</p>
+					</div>
+					{#if !isChangingPassword}
+						<button
+							onclick={togglePasswordChange}
+							class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+						>
+							Change Password
+						</button>
+					{/if}
+				</div>
+
+				{#if isChangingPassword}
+					<form action="?/updatePassword" method="post" use:enhance class="space-y-6">
+						<div>
+							<label for="currentPassword" class="block text-sm font-medium text-gray-700 mb-2">
+								Current Password
+							</label>
+							<input
+								type="password"
+								id="currentPassword"
+								name="currentPassword"
+								bind:value={currentPassword}
+								required
+								class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+								placeholder="••••••••"
+							/>
+						</div>
+
+						<div>
+							<label for="newPassword" class="block text-sm font-medium text-gray-700 mb-2">
+								New Password
+							</label>
+							<input
+								type="password"
+								id="newPassword"
+								name="newPassword"
+								bind:value={newPassword}
+								required
+								minlength="8"
+								class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+								placeholder="••••••••"
+							/>
+							<p class="mt-1 text-xs text-gray-500">Must be at least 8 characters</p>
+						</div>
+
+						<div>
+							<label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-2">
+								Confirm New Password
+							</label>
+							<input
+								type="password"
+								id="confirmPassword"
+								name="confirmPassword"
+								bind:value={confirmPassword}
+								required
+								minlength="8"
+								class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+								placeholder="••••••••"
+							/>
+						</div>
+
+						<div class="flex justify-end gap-3">
+							<button
+								type="button"
+								onclick={togglePasswordChange}
+								class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+							>
+								Cancel
+							</button>
+							<button
+								type="submit"
+								class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+							>
+								Update Password
+							</button>
+						</div>
+					</form>
+				{:else}
+					<p class="text-sm text-gray-600">Your password is hidden for security reasons.</p>
+				{/if}
+			</div>
+
+			<!-- Account Actions Card -->
+			<div class="bg-white shadow rounded-lg p-6">
+				<h2 class="text-xl font-semibold text-gray-900 mb-6">Account Actions</h2>
+				<div class="space-y-4">
+					<a
+						href="/posts"
+						class="block px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 text-center"
+					>
+						View My Posts
+					</a>
+					<form method="post" action="?/logout" use:enhance>
+						<button
+							type="submit"
+							class="w-full px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700"
+						>
+							Logout
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
