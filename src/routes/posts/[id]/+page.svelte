@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
+	import TiptapEditor from '$lib/components/TiptapEditor.svelte';
 
 	let { data, form } = $props();
 
@@ -123,14 +124,8 @@
 						<label for="content" class="block text-sm font-medium text-gray-700 mb-2">
 							Content
 						</label>
-						<textarea
-							id="content"
-							name="content"
-							bind:value={content}
-							required
-							rows="12"
-							class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-						></textarea>
+						<TiptapEditor content={content} onUpdate={(newContent) => content = newContent} />
+						<input type="hidden" name="content" value={content} />
 					</div>
 
 					<div class="flex justify-end gap-3">
@@ -153,7 +148,7 @@
 				<!-- View Mode -->
 				<h1 class="text-3xl font-bold text-gray-900 mb-4">{data.post.title}</h1>
 				<div class="prose max-w-none mb-6">
-					<p class="text-gray-700 whitespace-pre-wrap">{data.post.content}</p>
+					<TiptapEditor content={data.post.content} editable={false} />
 				</div>
 				<div class="border-t pt-4 mt-6 text-sm text-gray-500">
 					<p>Created: {formatDate(data.post.$createdAt)}</p>
