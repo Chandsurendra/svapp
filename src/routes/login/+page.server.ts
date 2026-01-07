@@ -40,7 +40,8 @@ export const actions: Actions = {
 				sameSite: 'strict',
 				expires: new Date(session.expire),
 				secure: true,
-				path: '/'
+				path: '/',
+				httpOnly: true
 			});
 
 			// Redirect to the home page
