@@ -27,7 +27,8 @@ export async function GET(event) {
 			sameSite: 'strict',
 			expires: new Date(session.expire),
 			secure: true,
-			path: '/'
+			path: '/',
+			httpOnly: true
 		})
 	});
 

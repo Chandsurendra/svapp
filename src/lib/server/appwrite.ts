@@ -4,7 +4,7 @@ import type { RequestEvent } from '@sveltejs/kit';
 import { APPWRITE_KEY } from '$env/static/private';
 import { PUBLIC_APPWRITE_ENDPOINT, PUBLIC_APPWRITE_PROJECT } from '$env/static/public';
 
-export const SESSION_COOKIE = 'my-custom-session';
+export const SESSION_COOKIE = 'edustream-session';
 
 export function createAdminClient() {
 	const client = new Client()
