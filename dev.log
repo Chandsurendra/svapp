@@ -1,0 +1,14 @@
+
+> edustream@0.0.1 dev
+> vite dev
+
+
+  VITE v7.3.1  ready in 1991 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+
+4:04:06 PM [vite] (client) hmr update /src/routes/layout.css
+4:04:06 PM [vite] (ssr) page reload src/routes/editor-test/+page.svelte
+4:04:06 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
+4:04:06 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
