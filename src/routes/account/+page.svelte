@@ -7,17 +7,17 @@
 	let isChangingPassword = $state(false);
 	let showPasswordSection = $state(false);
 
-	let name = $state(data?.user?.name || '');
-	let email = $state(data?.user?.email || '');
-	let phone = $state(data?.user?.phone || '');
+	let name = $state('');
+	let email = $state('');
+	let phone = $state('');
 
 	let currentPassword = $state('');
 	let newPassword = $state('');
 	let confirmPassword = $state('');
 
-	// Update local state when data changes
+	// Initialize and update local state when data changes (only when not editing)
 	$effect(() => {
-		if (data?.user) {
+		if (data?.user && !isEditingProfile) {
 			name = data.user.name || '';
 			email = data.user.email || '';
 			phone = data.user.phone || '';

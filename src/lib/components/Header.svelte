@@ -29,7 +29,7 @@
 					>
 						Account
 					</a>
-					<form method="POST" action="/account" use:enhance>
+					<form method="POST" action="/account?/logout" use:enhance>
 						<button
 							type="submit"
 							class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
@@ -38,7 +38,13 @@
 						</button>
 					</form>
 				{:else}
-					<a
+				<a
+				href="/account"
+				class="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+			>
+				Account
+			</a>
+			<a
 						href="/login"
 						class="text-gray-700 hover:text-blue-600 font-medium transition-colors"
 					>
