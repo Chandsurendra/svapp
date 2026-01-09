@@ -4,8 +4,8 @@
 	let { form } = $props();
 </script>
 
-<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-	<div class="max-w-md w-full space-y-8">
+<div class="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+	<div class="w-full max-w-md space-y-8">
 		<!-- Header -->
 		<div class="text-center">
 			<h2 class="text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
@@ -18,18 +18,16 @@
 		</div>
 
 		<!-- Login Form -->
-		<div class="bg-white py-8 px-6 shadow rounded-lg sm:px-10">
+		<div class="rounded-lg bg-white px-6 py-8 shadow sm:px-10">
 			{#if form?.error}
-				<div class="mb-4 p-3 bg-red-50 border border-red-200 rounded-md text-red-700 text-sm">
+				<div class="mb-4 rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
 					{form.error}
 				</div>
 			{/if}
 
 			<form action="?/login" method="post" use:enhance class="space-y-6">
 				<div>
-					<label for="email" class="block text-sm font-medium text-gray-700">
-						Email address
-					</label>
+					<label for="email" class="block text-sm font-medium text-gray-700"> Email address </label>
 					<div class="mt-1">
 						<input
 							id="email"
@@ -37,16 +35,14 @@
 							type="email"
 							autocomplete="email"
 							required
-							class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+							class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 focus:outline-none sm:text-sm"
 							placeholder="you@example.com"
 						/>
 					</div>
 				</div>
 
 				<div>
-					<label for="password" class="block text-sm font-medium text-gray-700">
-						Password
-					</label>
+					<label for="password" class="block text-sm font-medium text-gray-700"> Password </label>
 					<div class="mt-1">
 						<input
 							id="password"
@@ -54,7 +50,7 @@
 							type="password"
 							autocomplete="current-password"
 							required
-							class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+							class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 focus:outline-none sm:text-sm"
 							placeholder="••••••••"
 						/>
 					</div>
@@ -63,7 +59,7 @@
 				<div>
 					<button
 						type="submit"
-						class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+						class="flex w-full justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
 					>
 						Sign in
 					</button>
@@ -77,7 +73,7 @@
 						<div class="w-full border-t border-gray-300"></div>
 					</div>
 					<div class="relative flex justify-center text-sm">
-						<span class="px-2 bg-white text-gray-500">Or continue with</span>
+						<span class="bg-white px-2 text-gray-500">Or continue with</span>
 					</div>
 				</div>
 			</div>
@@ -87,9 +83,9 @@
 				<form action="?/oauth" method="post" use:enhance>
 					<button
 						type="submit"
-						class="w-full flex justify-center items-center gap-3 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+						class="flex w-full items-center justify-center gap-3 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
 					>
-						<svg class="w-5 h-5" viewBox="0 0 24 24">
+						<svg class="h-5 w-5" viewBox="0 0 24 24">
 							<path
 								fill="currentColor"
 								d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"

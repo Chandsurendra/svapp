@@ -3,7 +3,10 @@ import { createSessionClient, createSessionDatabaseClient } from '$lib/server/ap
 import { redirect, error } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
 import { Query } from 'node-appwrite';
-import { PUBLIC_APPWRITE_DATABASE_ID, PUBLIC_APPWRITE_POSTS_COLLECTION_ID } from '$env/static/public';
+import {
+	PUBLIC_APPWRITE_DATABASE_ID,
+	PUBLIC_APPWRITE_POSTS_COLLECTION_ID
+} from '$env/static/public';
 
 export const load: PageServerLoad = async ({ locals, url, cookies }) => {
 	// Check if user is authenticated

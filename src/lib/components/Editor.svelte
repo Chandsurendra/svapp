@@ -12,14 +12,14 @@
 		class?: string;
 	}
 
-	let { 
-		value = $bindable(''), 
+	let {
+		value = $bindable(''),
 		editable = true,
 		// name = 'content',
-		class: className = '' 
+		class: className = ''
 	}: Props = $props();
 
-	let element: HTMLDivElement |HTMLTextAreaElement| undefined = $state();
+	let element: HTMLDivElement | HTMLTextAreaElement | undefined = $state();
 	let editor: Editor | undefined = $state();
 
 	onMount(() => {
@@ -28,10 +28,7 @@
 		editor = new Editor({
 			element: element,
 			editable: editable, // Initial state
-			extensions: [
-				StarterKit,
-				Image.configure({ inline: true, allowBase64: true })
-			],
+			extensions: [StarterKit, Image.configure({ inline: true, allowBase64: true })],
 			content: value,
 			onUpdate: ({ editor }) => {
 				value = editor.getHTML();
@@ -65,8 +62,11 @@
 	});
 </script>
 
-<div class="relative flex flex-col w-full border rounded-lg bg-white shadow-sm transition-colors duration-200 {editable ? 'border-gray-300' : 'border-transparent shadow-none'}">
-	
+<div
+	class="relative flex w-full flex-col rounded-lg border bg-white shadow-sm transition-colors duration-200 {editable
+		? 'border-gray-300'
+		: 'border-transparent shadow-none'}"
+>
 	<!-- Only show Toolbar if editable and editor exists -->
 	{#if editor && editable}
 		<Toolbar {editor} />
@@ -79,11 +79,11 @@
 		class="flex-grow min-h-[100px] cursor-text"
 	></div>-->
 	<textarea
-	id="content"
-	name="content"
-	bind:this={element}
-	required
-	rows="12"
-	class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-	></textarea> 
-</div> 
+		id="content"
+		name="content"
+		bind:this={element}
+		required
+		rows="12"
+		class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
+	></textarea>
+</div>

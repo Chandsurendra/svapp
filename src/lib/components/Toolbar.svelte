@@ -7,7 +7,7 @@
 	}
 
 	let { editor }: Props = $props();
-	
+
 	// Local state to force UI updates when cursor moves
 	let selectionTick = $state(0);
 
@@ -50,17 +50,19 @@
 	}
 
 	// Styles
-	const btnBase = "p-2 rounded text-sm font-medium transition-colors border border-transparent";
-	const btnActive = "bg-black text-white border-black hover:bg-gray-800";
-	const btnInactive = "text-gray-600 hover:bg-gray-200 hover:text-black";
-	const separator = "w-px h-6 bg-gray-300 mx-1 self-center";
+	const btnBase = 'p-2 rounded text-sm font-medium transition-colors border border-transparent';
+	const btnActive = 'bg-black text-white border-black hover:bg-gray-800';
+	const btnInactive = 'text-gray-600 hover:bg-gray-200 hover:text-black';
+	const separator = 'w-px h-6 bg-gray-300 mx-1 self-center';
 
 	function getBtnClass(isActive: boolean): string {
 		return `${btnBase} ${isActive ? btnActive : btnInactive}`;
 	}
 </script>
 
-<div class="sticky top-0 z-10 flex flex-wrap items-center gap-1 p-2 border-b bg-gray-50/95 backdrop-blur supports-[backdrop-filter]:bg-gray-50/80 rounded-t-lg transition-all duration-200">
+<div
+	class="sticky top-0 z-10 flex flex-wrap items-center gap-1 rounded-t-lg border-b bg-gray-50/95 p-2 backdrop-blur transition-all duration-200 supports-[backdrop-filter]:bg-gray-50/80"
+>
 	<button
 		onclick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
 		class={getBtnClass(active.h1)}
@@ -122,9 +124,7 @@
 
 	<div class={separator}></div>
 
-	<button onclick={addImage} class={getBtnClass(false)} type="button">
-		Image
-	</button>
+	<button onclick={addImage} class={getBtnClass(false)} type="button"> Image </button>
 	<button
 		onclick={() => editor.chain().focus().toggleBlockquote().run()}
 		class={getBtnClass(active.quote)}
