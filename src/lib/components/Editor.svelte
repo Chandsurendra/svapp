@@ -7,7 +7,7 @@
 
 	interface Props {
 		value?: string;
-		// name?: string;
+		name?: string;
 		editable?: boolean;
 		class?: string;
 	}
@@ -15,7 +15,7 @@
 	let {
 		value = $bindable(''),
 		editable = true,
-		// name = 'content',
+		name = 'content',
 		class: className = ''
 	}: Props = $props();
 
@@ -71,19 +71,11 @@
 	{#if editor && editable}
 		<Toolbar {editor} />
 	{/if}
-	<!-- <input type="hidden" {name} bind:value={value} /> -->
+	<input type="hidden" {name} bind:value />
 
 	<!-- Editor Content Area -->
-	<!-- <div 
-		bind:this={element} 
-		class="flex-grow min-h-[100px] cursor-text"
-	></div>-->
-	<textarea
-		id="content"
-		name="content"
+	<div
 		bind:this={element}
-		required
-		rows="12"
-		class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
-	></textarea>
+		class="min-h-[100px] w-full flex-grow cursor-text rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
+	></div>
 </div>
