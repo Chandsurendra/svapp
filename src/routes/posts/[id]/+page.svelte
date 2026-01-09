@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
+	import Editor from '$lib/components/Editor.svelte';
 
 	let { data, form } = $props();
 
@@ -120,14 +121,11 @@
 							<label for="content" class="mb-2 block text-sm font-medium text-gray-700">
 								Content
 							</label>
-							<textarea
-								id="content"
-								name="content"
-								bind:value={content}
-								required
-								rows="12"
+							<Editor
 								class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
-							></textarea>
+								bind:value={content}
+								editable={isEditing}
+							/>
 						</div>
 
 						<div class="flex justify-end gap-3">
@@ -150,7 +148,8 @@
 					<!-- View Mode -->
 					<h1 class="mb-4 text-3xl font-bold text-gray-900">{data.post.title}</h1>
 					<div class="prose mb-6 max-w-none">
-						<p class="whitespace-pre-wrap text-gray-700">{data.post.content}</p>
+						<Editor bind:value={content} editable={isEditing} />
+						<!-- <p class="text-gray-700 whitespace-pre-wrap">{data.post.content}</p> -->
 					</div>
 					<div class="mt-6 border-t pt-4 text-sm text-gray-500">
 						<p>Created: {formatDate(data.post.$createdAt)}</p>

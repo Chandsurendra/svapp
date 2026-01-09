@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
+	import Editor from '$lib/components/Editor.svelte';
 
 	let { data, form } = $props();
 
@@ -82,15 +83,11 @@
 						<label for="content" class="mb-2 block text-sm font-medium text-gray-700">
 							Content
 						</label>
-						<textarea
-							id="content"
-							name="content"
-							bind:value={content}
-							required
-							rows="6"
+						<Editor
 							class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
-							placeholder="Enter post content"
-						></textarea>
+							bind:value={content}
+							editable={true}
+						/>
 					</div>
 
 					<div class="flex justify-end gap-3">
