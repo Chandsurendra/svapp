@@ -48,16 +48,16 @@ export const actions: Actions = {
 			redirect(302, '/');
 		} catch (err: any) {
 			console.error('Login error:', err);
-			
+
 			// Handle different error types
 			const errorMessage = err.message || 'Failed to sign in';
-			
+
 			if (errorMessage.includes('Invalid credentials') || errorMessage.includes('401')) {
 				return {
 					error: 'Invalid email or password'
 				};
 			}
-			
+
 			if (errorMessage.includes('User not found')) {
 				return {
 					error: 'No account found with this email address'

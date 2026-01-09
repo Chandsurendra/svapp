@@ -64,16 +64,16 @@ export const actions: Actions = {
 			redirect(302, '/');
 		} catch (err: any) {
 			console.error('Signup error:', err);
-			
+
 			// Handle different error types
 			const errorMessage = err.message || 'Failed to create account';
-			
+
 			if (errorMessage.includes('already exists') || errorMessage.includes('409')) {
 				return {
 					error: 'An account with this email already exists. Please sign in instead.'
 				};
 			}
-			
+
 			if (errorMessage.includes('Invalid email')) {
 				return {
 					error: 'Please enter a valid email address'

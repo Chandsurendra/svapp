@@ -53,7 +53,9 @@ export function createAdminDatabaseClient() {
 	return new Databases(client);
 }
 
-export function createSessionDatabaseClient(cookies: { get: (name: string) => string | undefined }) {
+export function createSessionDatabaseClient(cookies: {
+	get: (name: string) => string | undefined;
+}) {
 	const client = new Client()
 		.setEndpoint(PUBLIC_APPWRITE_ENDPOINT)
 		.setProject(PUBLIC_APPWRITE_PROJECT);

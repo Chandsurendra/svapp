@@ -2,7 +2,10 @@
 import { createSessionClient } from '$lib/server/appwrite';
 import { json, error } from '@sveltejs/kit';
 import { ID, Query } from 'node-appwrite';
-import { PUBLIC_APPWRITE_DATABASE_ID, PUBLIC_APPWRITE_POSTS_COLLECTION_ID } from '$env/static/public';
+import {
+	PUBLIC_APPWRITE_DATABASE_ID,
+	PUBLIC_APPWRITE_POSTS_COLLECTION_ID
+} from '$env/static/public';
 
 export async function GET(event) {
 	try {

@@ -151,7 +151,7 @@ export const actions: Actions = {
 		} catch (err: any) {
 			console.error('Password update error:', err);
 			const errorMessage = err.message || 'Failed to update password';
-			
+
 			if (errorMessage.includes('Invalid credentials') || errorMessage.includes('401')) {
 				return {
 					error: 'Current password is incorrect'
