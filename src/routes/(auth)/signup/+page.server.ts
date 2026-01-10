@@ -17,10 +17,11 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		const email = formData.get('email');
 		const password = formData.get('password');
+		const confirmpassword = formData.get('confirm-password');
 		const name = formData.get('name');
 
 		// Validate required fields
-		if (!email || !password || !name) {
+		if (!email || !password || !name || !confirmpassword) {
 			return {
 				error: 'All fields are required'
 			};
@@ -32,7 +33,12 @@ export const actions: Actions = {
 				error: 'Password must be at least 8 characters long'
 			};
 		}
-
+		// Validate password confirmation
+		if (password.toString() !== confirmpassword.toString()) {
+			return {
+				error: 'Passwords do not match'
+			};
+		}
 		try {
 			// Create the Appwrite client
 			const { account } = createAdminClient();

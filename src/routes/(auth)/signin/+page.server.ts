@@ -11,8 +11,8 @@ export const load: PageServerLoad = async ({ locals }) => {
 	}
 };
 
-export const actions: Actions = {
-	login: async ({ request, cookies, url }) => {
+export const actions = {
+	signin: async ({ request, cookies }) => {
 		// Extract the form data
 		const formData = await request.formData();
 		const email = formData.get('email');
@@ -80,4 +80,4 @@ export const actions: Actions = {
 
 		throw redirect(302, redirectUrl);
 	}
-};
+} satisfies Actions

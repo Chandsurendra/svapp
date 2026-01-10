@@ -68,7 +68,7 @@
 							learning journey.
 						</p>
 						<a
-							href="/login"
+							href="/signin"
 							class="block w-full rounded-md border border-gray-300 bg-white px-6 py-3 text-center font-medium text-gray-700 transition-colors hover:bg-gray-50"
 						>
 							Sign In
